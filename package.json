@@ -1,0 +1,67 @@
+{
+  "name": "search-bookmarks-history-and-tabs",
+  "version": "1.7.0",
+  "description": "Browser extension to (fuzzy) search and navigate bookmarks, history and open tabs.",
+  "main": "index.js",
+  "dependencies": {
+    "@leeoniya/ufuzzy": "^0.8.0",
+    "@yaireo/tagify": "^4.16.4",
+    "bulma": "^0.9.4",
+    "js-yaml": "^4.1.0",
+    "mark.js": "^8.11.1"
+  },
+  "devDependencies": {
+    "cypress": "^11.0.1",
+    "cypress-fail-on-console-error": "^4.0.2",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "live-server": "^1.2.2",
+    "prettier": "^2.7.1",
+    "prettier-eslint": "^15.0.1",
+    "sass": "^1.56.1"
+  },
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && npm run css-build && npm run update-libs && npm run create-dist && npm run size",
+    "update-libs": "sh bin/updateLibs.sh",
+    "create-dist": "sh bin/createDist.sh",
+    "test": "npm run e2e",
+    "e2e": "cypress run --config-file=cypress.config.js --spec 'cypress/e2e/**/*'",
+    "e2e-all": "npm run e2e-chrome && npm run e2e-firefox && npm run e2e-edge",
+    "e2e-chrome": "cypress run --config-file=cypress.config.js --browser chrome --headed --spec 'cypress/e2e/**/*'",
+    "e2e-firefox": "cypress run --config-file=cypress.config.js --browser firefox --headed --spec 'cypress/e2e/**/*'",
+    "e2e-edge": "cypress run --config-file=cypress.config.js --browser edge --headed --spec 'cypress/e2e/**/*'",
+    "lint": "npm run prettier-check && npm run eslint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,scss,yml,yaml,html,htm}\"",
+    "eslint": "eslint popup/**/*.js --fix --format stylish",
+    "css-build": "sass sass/style.scss popup/css/style.css --style=compressed --no-source-map",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "live-server --open=./popup/",
+    "prettier": "prettier --write --ignore-unknown .",
+    "prettier-check": "prettier --check --ignore-unknown .",
+    "cypress-info": "cypress info",
+    "cypress": "cypress open --config-file=cypress.config.js",
+    "size": "du -hc ./dist/chrome/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fannon/search-tabs-bookmarks-and-history.git"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "search",
+    "fuzzy",
+    "search",
+    "history",
+    "bookmarks",
+    "tabs"
+  ],
+  "author": "Simon Heimler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Fannon/search-tabs-bookmarks-and-history/issues"
+  },
+  "homepage": "https://github.com/Fannon/search-tabs-bookmarks-and-history#readme"
+}
